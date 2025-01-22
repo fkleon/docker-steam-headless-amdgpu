@@ -3,7 +3,9 @@
 > 
 > **AMD Ryzen 7 8845HS with Radeon 780M** (gfx1103_r1) (wouldn't recommend)
 > 
-> If you are using different hardware, you should stick with [the original project](https://github.com/Steam-Headless/docker-steam-headless). 
+> If you are using different hardware, you should stick with [the original project](https://github.com/Steam-Headless/docker-steam-headless). This fork breaks non-amd gpu support and might break features I don't use.
+>
+> It is expected that you edit `/etc/default/grub` to include `amdgpu.virtual_display=0000:c6:00.0,1` in `GRUB_CMDLINE_LINUX_DEFAULT` (after replacing the PCI address with your own). This is required for the GPU to be detected by the container.
 
 # Headless Steam Service
 
