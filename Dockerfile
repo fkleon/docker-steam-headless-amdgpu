@@ -67,7 +67,7 @@ RUN \
             jq \
             less \
             man-db \
-            mlocate \
+            plocate \
             nano \
             net-tools \
             p7zip-full \
