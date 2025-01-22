@@ -104,6 +104,24 @@ RUN \
     && \
     echo
 
+# Install gpu drivers
+RUN \
+    echo "**** Add i386 architecture ****" \
+        && dpkg --add-architecture i386 \
+        && apt-get update \
+    && \
+    echo "**** Install GPU drivers ****" \
+        && apt-get install -y --no-install-recommends \
+            libvulkan1 \
+            libvulkan1:i386 \
+            mesa-vulkan-drivers \
+            mesa-vulkan-drivers:i386 \
+            mesa-utils \
+            mesa-utils-extra \
+            vulkan-tools \
+    && \
+    echo
+
 # Configure default user and set user env
 ENV \
     PUID=99 \
