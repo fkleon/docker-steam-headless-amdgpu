@@ -418,7 +418,7 @@ RUN \
             gstreamer1.0-vaapi \
             gstreamer1.0-x \
             libgstreamer1.0-0 \
-            libncursesw5 \
+            libncursesw6 \
             libopenal1 \
             libsdl-image1.2 \
             libsdl-ttf2.0-0 \
