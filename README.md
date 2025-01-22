@@ -1,3 +1,10 @@
+> # FORK NOTICE
+> I have forked the steam-headless docker to adapt it to my crappy bleeding edge AMD GPU. So bleeding that drivers don't work. Here are most of the hacks I use to reduce the amount of crashes and GPU-resets I get with my own hardware :
+> 
+> **AMD Ryzen 7 8845HS with Radeon 780M** (gfx1103_r1) (wouldn't recommend)
+> 
+> If you are using different hardware, you should stick with [the original project](https://github.com/Steam-Headless/docker-steam-headless). 
+
 # Headless Steam Service
 
 ![](./images/banner.jpg)
