@@ -191,7 +191,6 @@ RUN \
             xclip \
             xcvt \
             xdotool \
-            xfishtank \
             xfonts-base \
             xinit \
             xorg \
