@@ -443,8 +443,7 @@ RUN \
     && \
     echo "**** Install Intel media drivers and VAAPI ****" \
         && apt-get install -y --no-install-recommends \
-            intel-media-va-driver-non-free \
-            i965-va-driver-shaders \
+            mesa-va-drivers \
             libva2 \
     && \
     echo "**** Section cleanup ****" \
