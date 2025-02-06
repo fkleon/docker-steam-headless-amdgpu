@@ -7,6 +7,8 @@
 >
 > It is expected that you edit `/etc/default/grub` to include `amdgpu.virtual_display=0000:c6:00.0,1` in `GRUB_CMDLINE_LINUX_DEFAULT` (after replacing the PCI address with your own). Otherwise, you will get a black screen.
 >
+> You also might need to remove ALL your drivers from the host. Yes, this makes no sense as they should be inactive, but it fixed crashes for me. There might be a bug in the universe at this point.
+>
 > Once sunshine is up and running, you might want to go to its settings and force it to use the VA-API encoder. Otherwise, the stream will be so laggy it's unplayable.
 > 
 > <details>
