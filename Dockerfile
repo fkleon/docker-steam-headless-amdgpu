@@ -1,4 +1,4 @@
-FROM debian:testing-slim
+FROM debian:trixie-slim
 LABEL maintainer="Josh.5 <jsunnex@gmail.com>"
 
 # Update package repos
@@ -479,7 +479,7 @@ RUN \
     echo
 
 # Install Sunshine
-COPY --from=lizardbyte/sunshine:v2025.118.151840-debian-bookworm /sunshine.deb /usr/src/sunshine.deb
+COPY --from=lizardbyte/sunshine:v2025.822.34814-debian-trixie /sunshine.deb /usr/src/sunshine.deb
 RUN \
     echo "**** Update apt database ****" \
         && apt-get update \
