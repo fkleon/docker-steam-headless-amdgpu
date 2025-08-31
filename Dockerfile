@@ -468,7 +468,6 @@ RUN \
             cpu-x \
             htop \
             vainfo \
-            vdpauinfo \
     && \
     echo "**** Section cleanup ****" \
         && apt-get clean autoclean -y \
