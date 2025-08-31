@@ -444,7 +444,9 @@ RUN \
     echo "**** Install Intel media drivers and VAAPI ****" \
         && apt-get install -y --no-install-recommends \
             mesa-va-drivers \
+            mesa-va-drivers:i386 \
             libva2 \
+            libva2:i386 \
     && \
     echo "**** Section cleanup ****" \
         && apt-get clean autoclean -y \
