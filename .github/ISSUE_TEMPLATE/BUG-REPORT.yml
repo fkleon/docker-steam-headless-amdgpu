@@ -61,7 +61,7 @@ body:
         Detail the host OS platform, version and software versions.
           - Distribution: `$(. /etc/os-release; echo "${NAME} - ${VERSION}")`
           - Linux Kernel: `$(uname -rpio)`
-          - GPU Driver versions: `$(nvidia-smi | grep 'Version:')`
+          - GPU Driver versions: `$(glxinfo | grep 'OpenGL renderer')`
           - Docker: `$(docker -v)`
           - Docker-compose: `$(docker compose -v)`
       placeholder: |

@@ -561,9 +561,6 @@ ENV \
     DISPLAY_SIZEW="1600" \
     DISPLAY_VIDEO_PORT="DFP" \
     DISPLAY=":55"
-ENV \
-    NVIDIA_DRIVER_CAPABILITIES="all" \
-    NVIDIA_VISIBLE_DEVICES="all"
 
 # Set container configuration environment variables
 # TODO: Set the default WEBUI_USER & WEBUI_PASS after release of SHUI

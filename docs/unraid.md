@@ -14,16 +14,7 @@ Follow these instructions to install Steam Headless on Unraid
 ## GPU CONFIGURATION:
 
 This container can use your dedicated GPU. 
-In order for it to do this you need to have either the Nvidia-Driver or Radeon-Top plugin installed.
-
-### NVIDIA
-
-1. Install the [Nvidia-Driver Plugin](https://forums.unraid.net/topic/98978-plugin-nvidia-driver/) by [ich777](https://forums.unraid.net/profile/72388-ich777/). This will maintain an up-to-date NVIDIA driver installation on your Unraid server.
-![](./images/unraid-nvidia-plugin.png)
-2. Toggle the steam-headless Docker Container template editor to "**Advanced View**".
-3. In the "**Extra Parameters**" field, ensure that you have the "--runtime=nvidia" parameter added.
-![](./images/unraid-steam-headless-template-nvidia-extra-params.png)
-4. (Optional - This step is only necessary if you only multiple NVIDIA GPUs. If you have a single GPU, then leaving this as "all" is fine.) Expand the **Show more settings...** section near the bottom of the template. In the **Nvidia GPU UUID**: (NVIDIA_VISIBLE_DEVICES) variable, copy your GPU UUID (can be found in the Unraid Nvidia Plugin. See that forum thread for details).
+In order for it to do this you need to have the Radeon-Top plugin installed.
 
 ### AMD
 

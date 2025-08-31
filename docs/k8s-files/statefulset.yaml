@@ -28,7 +28,6 @@ spec:
           limits:
             memory: "24G"
             cpu: "6"
-            nvidia.com/gpu: 1 #If you're using a nvidia GPU, add it here
         volumeMounts:
         - name: home-dir
           mountPath: /home/default/
@@ -49,8 +48,6 @@ spec:
           value: ':55'
         - name: SHM_SIZE
           value: '2G'
-        - name: DOCKER_RUNTIME
-          value: 'nvidia'
         - name: PUID
           value: '1000'
         - name: PGID
@@ -75,10 +72,6 @@ spec:
           value: 'password'
         - name: ENABLE_EVDEV_INPUTS
           value: 'true'
-        - name: NVIDIA_DRIVER_CAPABILITIES
-          value: 'all'
-        - name: NVIDIA_VISIBLE_DEVICES
-          value: 'all'
       volumes:
       - name: home-dir
         persistentVolumeClaim:

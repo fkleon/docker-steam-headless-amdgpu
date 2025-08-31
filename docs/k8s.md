@@ -3,7 +3,6 @@
 Have a cluster at home and want to add steam headless to it?
 
 Requirements
-- NVIDIA Device plugin (if using nvidia GPU) https://github.com/NVIDIA/k8s-device-plugin 
 - A storageclass
 
 Tasks

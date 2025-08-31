@@ -44,7 +44,7 @@ Populate this file with the contents of the default Docker Compose File
 - [AMD and Intel GPUs](./compose-files/docker-compose.amd+intel.yml).
 - [Privileged AMD and Intel GPUs Docker Compose Template](./compose-files/docker-compose.amd+intel.privileged.yml) (grants full access to host devices).
 
-#### Multipl AMD or Intel GPUs
+#### Multiple AMD or Intel GPUs
 
 If you have multiple AMD or Intel GPUs and you wish to isolate them, then follow these steps to determine the card to passthrough in the docker compose file. This requires that you do not use the privileged compose template.
 1) List the PCI devices and get their IDs `lspci | grep -E 'VGA|3D'`
@@ -68,10 +68,6 @@ lrwxrwxrwx. 1 root root 0 May  8 15:44 /sys/class/drm/renderD129 -> ../../device
 ```
 
 From this example output we can see that the Intel GPU is `/dev/dri/card1` and `/dev/dri/renderD128`.
-
-### NVIDIA:
-- [NVIDIA GPUs Docker Compose Template](./compose-files/docker-compose.nvidia.yml).
-- [Privileged NVIDIA GPUs Docker Compose Template](./compose-files/docker-compose.nvidia.yml) (grants full access to host devices).
 
 ## CONFIGURE ENV:
 

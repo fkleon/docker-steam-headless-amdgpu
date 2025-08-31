@@ -117,7 +117,7 @@ Easily deploy a Steam Docker instance in seconds.
 - Moonlight compatible server for easy remote desktop streaming
 - One click installation of EmeDeck, Heroic and Lutris
 - Full video/audio noVNC web access to a Xfce4 Desktop
-- NVIDIA, AMD and Intel GPU support
+- AMD and Intel GPU support
 - Full controller support
 - Support for Flatpak and Appimage installation
 - Root access
