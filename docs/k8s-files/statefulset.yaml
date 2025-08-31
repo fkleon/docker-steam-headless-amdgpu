@@ -67,8 +67,6 @@ spec:
           value: 'false'
         - name: PORT_NOVNC_WEB
           value: '8083'
-        - name: NEKO_NAT1TO1
-          value: ''
         - name: ENABLE_SUNSHINE
           value: 'true'
         - name: SUNSHINE_USER

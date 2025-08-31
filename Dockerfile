@@ -322,11 +322,6 @@ RUN \
     && \
     echo
 
-# TODO: Deprecate neko
-# Install Neko server
-COPY --from=m1k1o/neko:base /usr/bin/neko /usr/bin/neko
-COPY --from=m1k1o/neko:base /var/www /var/www
-
 # Install Web Frontend
 ARG NODE_VERSION="v20"
 ARG FRONTEND_VERSION=a8eb92f
@@ -576,8 +571,6 @@ ENV \
     MODE="primary" \
     WEB_UI_MODE="vnc" \
     ENABLE_VNC_AUDIO="true" \
-    NEKO_PASSWORD=neko \
-    NEKO_PASSWORD_ADMIN=admin \
     ENABLE_STEAM="true" \
     STEAM_ARGS="-silent" \
     WEBUI_USER="" \
@@ -589,8 +582,7 @@ ENV \
 
 # Configure required ports
 ENV \
-    PORT_NOVNC_WEB="8083" \
-    NEKO_NAT1TO1=""
+    PORT_NOVNC_WEB="8083"
 
 # Expose the required ports
 EXPOSE 8083
