@@ -1,71 +1,69 @@
 > # FORK NOTICE
-> I have forked the steam-headless docker to adapt it to my crappy bleeding edge AMD GPU. So bleeding that drivers don't work. Here are most of the hacks I use to reduce the amount of crashes and GPU-resets I get with my own hardware :
-> 
-> **AMD Ryzen 7 8845HS with Radeon 780M** (gfx1103_r1) (wouldn't recommend)
+> This fork supports AMDGPU only, tested on
+>
+> **AMD Ryzen 7 5825U with Radeon Vega 8 (Renoir/Barcelo)** (gfx90c)
 > 
 > If you are using different hardware, you should stick with [the original project](https://github.com/Steam-Headless/docker-steam-headless). This fork breaks non-amd gpu support and might break features I don't use.
 >
-> It is expected that you edit `/etc/default/grub` to include `amdgpu.virtual_display=0000:c6:00.0,1` in `GRUB_CMDLINE_LINUX_DEFAULT` (after replacing the PCI address with your own). Otherwise, you will get a black screen.
->
-> You also might need to remove ALL your drivers from the host. Yes, this makes no sense as they should be inactive, but it fixed crashes for me. There might be a bug in the universe at this point.
+> It is expected that you have [setup a virtual display](https://wiki.archlinux.org/title/AMDGPU#Virtual_display_on_headless_setups), for example by editing `/etc/default/grub` to include `amdgpu.virtual_display=0000:c6:00.0,1` in `GRUB_CMDLINE_LINUX_DEFAULT` (after replacing the PCI address with your own). Otherwise, you will get a black screen.
 >
 > Once sunshine is up and running, you might want to go to its settings and force it to use the VA-API encoder. Otherwise, the stream will be so laggy it's unplayable.
 > 
 > <details>
-> <summary>Here is my docker-compose for reference</summary>
+> <summary>Here is my docker-compose for reference (running on TrueNAS 25.04)</summary>
 >
 > ```yaml
 > services:
 >   steam-headless:
->     image: mubelotix/docker-steam-headless-amdgpu:latest
+>     image: fkleon/docker-steam-headless-amdgpu:latest
 >     restart: unless-stopped
 >     shm_size: 2G
->     ipc: host # Could also be set to 'shareable'
+>     ipc: host
 >     ulimits:
 >       nofile:
 >         soft: 1024
 >         hard: 524288
 >     cap_add:
+>       - AUDIT_WRITE
+>       - CHOWN
+>       - DAC_OVERRIDE
+>       - FOWNER
+>       - FSETID
+>       - KILL
+>       - MKNOD
 >       - NET_ADMIN
+>       - SETGID
+>       - SETUID
 >       - SYS_ADMIN
 >       - SYS_NICE
+>       - SYS_RESOURCE
 >     security_opt:
 >       - seccomp:unconfined
 >       - apparmor:unconfined
-> 
 >     # This is required (see https://github.com/Steam-Headless/docker-steam-headless/issues/157)
 >     network_mode: host
->     # ports:
->     #   - "{{ sunshine_inner_port }}:47990"
->     #   - "47984:47984/tcp"
->     #   - "47989:47989/tcp"
->     #   - "48010:48010/tcp"
->     #   - "47998:47998/udp"
->     #   - "47999:47999/udp"
->     #   - "48000:48000/udp"
->     #   - "48002:48002/udp"
->     #   - "48010:48010/udp"
 > 
 >     environment:
 >       # System
->       - TZ=Europe/Paris
+>       - TZ=Pacific/Auckland
 >       - USER_LOCALES=en_US.UTF-8 UTF-8
 >       - SHM_SIZE=2G
 >       # User
->       - PUID={{ user_id }}
->       - PGID={{ group_id }}
+>       - PUID=568
+>       - PGID=568
 >       - UMASK=000
 >       - USER_PASSWORD={{ steam_user_password }}
 >       # Mode
 >       - MODE=primary
 >       # Web UI
->       - WEB_UI_MODE=none
+>       - WEB_UI_MODE=vnc
+>       - PORT_NOVNC_WEB=31313
 >       # Steam
 >       - ENABLE_STEAM=true
 >       - STEAM_ARGS=-silent
 >       # Sunshine
->       - ENABLE_SUNSHINE=true
->       - SUNSHINE_USER=mubelotix
+>       - ENABLE_SUNSHINE=false
+>       - SUNSHINE_USER=sunshine
 >       - SUNSHINE_PASS={{ sunshine_password }}
 >       # Xorg
 >       - ENABLE_EVDEV_INPUTS=true
@@ -84,9 +82,23 @@
 >     device_cgroup_rules:
 >       - 'c 13:* rmw' # Ensure container access to devices 13:*
 > 
+>     extra_hosts:
+>       - steam-headless:127.0.0.1
+>     hostname: steam-headless
 >     volumes:
 >       # The location of your home directory.
 >       - /data/steam/home/:/home/default/:rw
+>     x-notes: |
+>       # Steam Headless AMDGPU
+>
+>       * https://github.com/fkleon/docker-steam-headless-amdgpu
+>
+>     x-portals:
+>       - host: {{ truenas_hostname }}
+>         name: Web VNC
+>         path: /
+>         port: 31313
+>         scheme: http
 > ```
 > </details>
 
@@ -109,7 +121,7 @@ Easily deploy a Steam Docker instance in seconds.
 - Full controller support
 - Support for Flatpak and Appimage installation
 - Root access
-- Based on Debian Bookworm
+- Based on Debian Trixie
 
 ---
 ## Notes:
