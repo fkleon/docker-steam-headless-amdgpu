@@ -6,6 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
     echo "**** Update apt database ****" \
         && sed -i '/^Components: main/ s/$/ contrib non-free/' /etc/apt/sources.list.d/debian.sources \
+        && echo "deb http://deb.debian.org/debian unstable main contrib non-free" >> /etc/apt/sources.list.d/unstable.list \
+        && echo 'Package: *\nPin: release a=testing\nPin-Priority: 900\n\nPackage: *\nPin: release a=unstable\nPin-Priority: 50\n' > /etc/apt/preferences.d/limit-unstable \
     && \
     echo
 
@@ -224,7 +226,7 @@ RUN \
         && apt-get install -y --no-install-recommends \
             pulseaudio \
             alsa-utils \
-            libasound2 \
+            libasound2t64 \
             libasound2-plugins \
     && \
     echo "**** Section cleanup ****" \
@@ -516,16 +518,10 @@ RUN \
         && dpkg --add-architecture i386 \
         && apt-get update \
     && \
-    echo "**** Install Gamescope ****" \
-        && wget --no-check-certificate --no-cookies --quiet \
-            -O /gamescope.deb \
-            https://deb.debian.org/debian/pool/contrib/g/gamescope/gamescope_3.16.20+ds-1_amd64.deb \
-        && apt-get install -y --no-install-recommends /gamescope.deb \
-        && rm -f /gamescope.deb \
-    && \
     echo "**** Install Steam ****" \
         && apt-get install -y --no-install-recommends \
             steam-installer \
+        && apt-get install -y --no-install-recommends -t unstable \
             gamescope \
         && ln -sf /usr/games/steam /usr/bin/steam \
     && \
