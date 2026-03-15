@@ -519,7 +519,7 @@ RUN \
     echo "**** Install Gamescope ****" \
         && wget --no-check-certificate --no-cookies --quiet \
             -O /gamescope.deb \
-            https://deb.debian.org/debian/pool/contrib/g/gamescope/gamescope_3.16.15-2_amd64.deb \
+            https://deb.debian.org/debian/pool/contrib/g/gamescope/gamescope_3.16.20+ds-1_amd64.deb \
         && apt-get install -y --no-install-recommends /gamescope.deb \
         && rm -f /gamescope.deb \
     && \
