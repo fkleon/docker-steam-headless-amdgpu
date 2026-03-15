@@ -115,7 +115,7 @@ Easily deploy a Steam Docker instance in seconds.
 ## Features:
 - Steam Client configured for running on Linux with Proton
 - Moonlight compatible server for easy remote desktop streaming
-- One click installation of EmeDeck, Heroic and Lutris
+- Easy installation of EmeDeck, Heroic and Lutris via Flatpak
 - Full video/audio noVNC web access to a Xfce4 Desktop
 - AMD and Intel GPU support
 - Full controller support
@@ -129,6 +129,8 @@ Easily deploy a Steam Docker instance in seconds.
 ### ADDITIONAL SOFTWARE:
 If you wish to install additional applications, you can generate a script inside the `~/init.d` directory ending with ".sh".
 This will be executed on the container startup.
+
+Also, you can install applications using the WebUI under **Applications > System > Software**. There you can install other game launchers like Lutris, Heroic or EmuDeck.
 
 ### STORAGE PATHS:
 Everything that you wish to save in this container should be stored in the home directory or a docker container mount that you have specified. 

@@ -18,6 +18,7 @@ RUN \
         && apt-get install -y --no-install-recommends \
             locales \
         && echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen \
+        && echo 'en_GB.UTF-8 UTF-8' >> /etc/locale.gen \
         && locale-gen \
     && \
     echo "**** Section cleanup ****" \
@@ -265,21 +266,23 @@ RUN \
             /usr/share/applications/xfce4-about.desktop \
             /usr/share/applications/xfce4-session-logout.desktop \
         # Hide these apps. They can be displayed if a user really wants them.
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/xfce4-accessibility-settings.desktop \
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/xfce4-color-settings.desktop \
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/xfce4-mail-reader.desktop \
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/xfce4-web-browser.desktop \
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/vim.desktop \
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/thunar-settings.desktop \
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/thunar.desktop \
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/x11vnc.desktop \
+        && [ -f /usr/share/applications/xfce4-accessibility-settings.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/xfce4-accessibility-settings.desktop || true \
+        && [ -f /usr/share/applications/xfce4-color-settings.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/xfce4-color-settings.desktop || true \
+        && [ -f /usr/share/applications/xfce4-mail-reader.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/xfce4-mail-reader.desktop || true \
+        && [ -f /usr/share/applications/xfce4-web-browser.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/xfce4-web-browser.desktop || true \
+        && [ -f /usr/share/applications/vim.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/vim.desktop || true \
+        && [ -f /usr/share/applications/thunar-settings.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/thunar-settings.desktop || true \
+        && [ -f /usr/share/applications/thunar.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/thunar.desktop || true \
+        && [ -f /usr/share/applications/pavucontrol.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/pavucontrol.desktop || true \
+        && [ -f /usr/share/applications/x11vnc.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/x11vnc.desktop || true \
+        && [ -f /usr/share/applications/display-im6.q16.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/display-im6.q16.desktop || true \
         # These are named specifically for Debain
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/debian-xterm.desktop \
-        && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/debian-uxterm.desktop \
+        && [ -f /usr/share/applications/debian-xterm.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/debian-xterm.desktop || true \
+        && [ -f /usr/share/applications/debian-uxterm.desktop ] && sed -i '/[Desktop Entry]/a\NoDisplay=true' /usr/share/applications/debian-uxterm.desktop || true \
         # Force these apps to be "System" Apps rather than "Categories=System;Utility;Core;GTK;Filesystem;"
-        && sed -i 's/^Categories=.*$/Categories=System;/' /usr/share/applications/xfce4-appfinder.desktop \
-        && sed -i 's/^Categories=.*$/Categories=System;/' /usr/share/applications/thunar-bulk-rename.desktop \
-        && sed -i 's/^Categories=.*$/Categories=System;/' /usr/share/applications/org.gnome.gedit.desktop \
+        && [ -f /usr/share/applications/xfce4-appfinder.desktop ] && sed -i 's/^Categories=.*$/Categories=System;/' /usr/share/applications/xfce4-appfinder.desktop || true \
+        && [ -f /usr/share/applications/thunar-bulk-rename.desktop ] && sed -i 's/^Categories=.*$/Categories=System;/' /usr/share/applications/thunar-bulk-rename.desktop || true \
+        && [ -f /usr/share/applications/org.gnome.gedit.desktop ] && sed -i 's/^Categories=.*$/Categories=System;/' /usr/share/applications/org.gnome.gedit.desktop || true \
     && \
     echo "**** Install WoL Manager requirements ****" \
         && apt-get install -y \
@@ -296,12 +299,18 @@ RUN \
     && \
     echo
 
-# Add support for flatpaks
+# Add support for flatpaks and D-Bus system services
 ENV \
     XDG_DATA_DIRS="/home/default/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/"
 RUN \
     echo "**** Update apt database ****" \
         && apt-get update \
+    && \
+    echo "**** Install D-Bus system services for desktop integration ****" \
+        && apt-get install -y --no-install-recommends \
+            accountsservice \
+            polkitd \
+            pkexec \
     && \
     echo "**** Install flatpak support ****" \
         && apt-get install -y --no-install-recommends \
