@@ -6,8 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
     echo "**** Update apt database ****" \
         && sed -i '/^Components: main/ s/$/ contrib non-free/' /etc/apt/sources.list.d/debian.sources \
-        && echo "deb http://deb.debian.org/debian unstable main contrib non-free" >> /etc/apt/sources.list.d/unstable.list \
-        && echo 'Package: *\nPin: release a=testing\nPin-Priority: 900\n\nPackage: *\nPin: release a=unstable\nPin-Priority: 50\n' > /etc/apt/preferences.d/limit-unstable \
+        && echo "deb http://deb.debian.org/debian/ trixie-backports main contrib non-free" >> /etc/apt/sources.list.d/backports.list \
     && \
     echo
 
@@ -521,7 +520,7 @@ RUN \
     echo "**** Install Steam ****" \
         && apt-get install -y --no-install-recommends \
             steam-installer \
-        && apt-get install -y --no-install-recommends -t unstable \
+        && apt-get install -y --no-install-recommends -t trixie-backports \
             gamescope \
         && ln -sf /usr/games/steam /usr/bin/steam \
     && \
