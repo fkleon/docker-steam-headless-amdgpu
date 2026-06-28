@@ -113,11 +113,17 @@ RUN \
         && apt-get update \
     && \
     echo "**** Install GPU drivers ****" \
+        && apt-get install -y --no-install-recommends -t trixie-backports \
+            mesa-vulkan-drivers \
+            mesa-vulkan-drivers:i386 \
+            libglx-mesa0 \
+            libglx-mesa0:i386 \
+            libegl-mesa0 \
+            libegl-mesa0:i386 \
+            vulkan-tools \
         && apt-get install -y --no-install-recommends \
             libvulkan1 \
             libvulkan1:i386 \
-            mesa-vulkan-drivers \
-            mesa-vulkan-drivers:i386 \
             mesa-utils \
             mesa-utils-extra \
             vulkan-tools \
@@ -447,9 +453,10 @@ RUN \
         && apt-get update \
     && \
     echo "**** Install Intel media drivers and VAAPI ****" \
-        && apt-get install -y --no-install-recommends \
+        && apt-get install -y --no-install-recommends -t trixie-backports \
             mesa-va-drivers \
             mesa-va-drivers:i386 \
+        && apt-get install -y --no-install-recommends \
             libva2 \
             libva2:i386 \
     && \
