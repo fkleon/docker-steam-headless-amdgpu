@@ -492,7 +492,7 @@ RUN \
     echo
 
 # Install Sunshine
-COPY --from=lizardbyte/sunshine:v2026.508.45922-debian-trixie /sunshine.deb /usr/src/sunshine.deb
+COPY --from=lizardbyte/sunshine:v2026.623.175142-debian-trixie /sunshine.deb /usr/src/sunshine.deb
 RUN \
     echo "**** Update apt database ****" \
         && apt-get update \
@@ -504,6 +504,7 @@ RUN \
     echo "**** Install Sunshine ****" \
         && apt-get install -y \
             /usr/src/sunshine.deb \
+        && rm -f /usr/src/sunshine.deb \
     && \
     echo "**** Section cleanup ****" \
         && apt-get clean autoclean -y \
