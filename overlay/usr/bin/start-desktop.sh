@@ -37,7 +37,6 @@ wait_for_x
 if [[ ! -f /tmp/.desktop-apps-updated ]]; then
     xterm -geometry 200x50+0+0 -ls -e /bin/bash -c "
         source /usr/bin/install_firefox.sh;
-        source /usr/bin/install_protonup.sh;
         sleep 1;
     "
     touch /tmp/.desktop-apps-updated
