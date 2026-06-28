@@ -480,6 +480,7 @@ RUN \
             cpu-x \
             htop \
             vainfo \
+            mangohud \
     && \
     echo "**** Section cleanup ****" \
         && apt-get clean autoclean -y \
