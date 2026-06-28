@@ -491,6 +491,16 @@ RUN \
     && \
     echo
 
+# Install amdgpu-top
+ARG AMDGPU_TOP_VERSION=0.11.5
+ARG AMDGPU_TOP_CHECKSUM=sha256:4c35d39d6ce6e60cdd453a84d2c494b23bae6a2bd4d1ca99f33b82f778e46d82
+ADD --checksum=${AMDGPU_TOP_CHECKSUM} \
+	https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v${AMDGPU_TOP_VERSION}/amdgpu-top_without_gui_${AMDGPU_TOP_VERSION}-1_amd64.deb \
+	/usr/src/amdgpu-top.deb
+
+RUN dpkg -i /usr/src/amdgpu-top.deb && \
+	rm /usr/src/amdgpu-top.deb
+
 # Install Sunshine
 COPY --from=lizardbyte/sunshine:v2026.623.175142-debian-trixie /sunshine.deb /usr/src/sunshine.deb
 RUN \
